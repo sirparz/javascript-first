@@ -94,6 +94,50 @@ const idInvalidCard = batchParam => {
 const usableNumArray = number => String(number).split('').map(Number) 
 // turns numbers into array of digit ^_^
 
+const makeCardValid = card => {
+  // limitation: only the last digit and third last digit is altered
+  if (!validateCred(card)) {
+    const len = card.length;
+    let coeff = card[len-3] + card[len-1]
+    let newCoeff = coeff;
+
+    screwedCred = screwCred(card);
+    let sumCred = 0;
+    screwedCred.forEach(item => {sumCred+=item});
+    //console.log('sumcred: ' + sumCred)
+
+    if (coeff < 10) { //increase
+      newCoeff += 10 - (sumCred % 10)
+    } else { // decrease
+      newCoeff -= (sumCred % 10)
+    }
+    //console.log('coeff: ' + coeff)
+    //console.log('newCoeff: ' + newCoeff)
+    let first = 0;
+    let alterer = newCoeff - 10;
+    if (newCoeff < 10) { 
+      first = Math.floor(Math.random() * (newCoeff+1));
+    } else { // newCoeff >= 10
+      first = alterer + Math.floor(Math.random() * (10 - alterer));
+    }
+    let second = newCoeff - first;
+    console.log('first: ' + first)
+    console.log('second: ' + second)
+
+    newDigits = [first, second].sort(function () {
+      return Math.random() - 0.5;
+    });
+    //console.log(newDigits);
+    
+    let newCard = card;
+    newCard[len-3] = newDigits[0];
+    newCard[len-1] = newDigits[1];
+    return newCard;
+  } else {
+    return card;
+  }
+}
+
 // Console Logs
 console.log('Identify a batch of credit cards:')
 console.log(idInvalidCard(batch))
@@ -102,3 +146,8 @@ console.log('Your Turn Here. Here Is Your Card!')
 let yourTurn = usableNumArray(4539087854047379); // From the card generator. Not a real one
 yourCard = cardIdentifier(yourTurn)
 console.log(yourCard)
+
+console.log('Let\'s try an invalid card:')
+console.log(cardIdentifier(invalid4))
+fixedCard = makeCardValid(invalid4)
+console.log(cardIdentifier(fixedCard))
