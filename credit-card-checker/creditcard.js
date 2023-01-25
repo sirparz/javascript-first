@@ -1,4 +1,5 @@
 // The Not-so-ultimate Credit Card Checker
+// Made by Sir Parz ^_^
 // All valid credit card numbers
 const valid1 = [4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8];
 const valid2 = [5, 5, 3, 5, 7, 6, 6, 7, 6, 8, 7, 5, 1, 4, 3, 9];
@@ -25,8 +26,6 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
-const usableNumArray = number => String(number).split('').map(Number) // turns numbers into array of digit ^_^
-
 const screwCred = cred => {
   const len = cred.length;
   const screwed = [];
@@ -92,11 +91,14 @@ const idInvalidCard = batchParam => {
   return invIdenifiedCard;
 }
 
+const usableNumArray = number => String(number).split('').map(Number) 
+// turns numbers into array of digit ^_^
 
 // Console Logs
 console.log('Identify a batch of credit cards:')
 console.log(idInvalidCard(batch))
+
 console.log('Your Turn Here. Here Is Your Card!')
-let yourTurn = usableNumArray(4539087854047379); // Your Turn Here. Input Your Card.
+let yourTurn = usableNumArray(4539087854047379); // From the card generator. Not a real one
 yourCard = cardIdentifier(yourTurn)
 console.log(yourCard)
