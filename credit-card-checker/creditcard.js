@@ -118,7 +118,7 @@ const makeCardValid = card => {
     if (newCoeff < 10) { 
       first = Math.floor(Math.random() * (newCoeff + 1));
     } else { // newCoeff >= 10
-      first = alterer + Math.floor(Math.random() * (10 - alterer + 1));
+      first = alterer + Math.floor(Math.random() * (9 - alterer + 1));
     }
     let second = newCoeff - first;
     console.log('first: ' + first)
